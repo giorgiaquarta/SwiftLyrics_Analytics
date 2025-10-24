@@ -1,5 +1,7 @@
 LICENSE
+pyproject.toml
 setup.py
+SwiftLyrics_Analytics/SwiftLyrics_Analytics.py
 SwiftLyrics_Analytics/__init__.py
 SwiftLyrics_Analytics/__main__.py
 SwiftLyrics_Analytics/__version__.py
@@ -7,4 +9,5 @@ SwiftLyrics_Analytics.egg-info/PKG-INFO
 SwiftLyrics_Analytics.egg-info/SOURCES.txt
 SwiftLyrics_Analytics.egg-info/dependency_links.txt
 SwiftLyrics_Analytics.egg-info/entry_points.txt
+SwiftLyrics_Analytics.egg-info/requires.txt
 SwiftLyrics_Analytics.egg-info/top_level.txt

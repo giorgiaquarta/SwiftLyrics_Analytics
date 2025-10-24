@@ -1,11 +1,15 @@
 Metadata-Version: 2.1
 Name: SwiftLyrics_Analytics
 Version: 0.0.1
-Summary: Data analysis of Taylor Swift lyrics from her first 11 albums
+Summary: Analysis and comparison of themes and lyrics of the whole Taylor Swift discography
 Home-page: https://github.com/giorgiaquarta/SwiftLyrics_Analytics
 Download-URL: https://github.com/giorgiaquarta/SwiftLyrics_Analytics
 Author: Giorgia Quarta
-Author-email: giorgia.quarta3@studio.unibo.it
+Author-email: Giorgia Quarta <giorgia.quarta3@studio.unibo.it>
+Maintainer-email: Giorgia Quarta <giorgia.quarta3@studio.unibo.it>
+License: MIT
+Project-URL: Homepage, https://github.com/giorgiaquarta/SwiftLyrics_Analytics
+Keywords: statistics,exercise,software-development
 Platform: any
 Classifier: Natural Language :: English
 Classifier: Operating System :: MacOS :: MacOS X
@@ -24,4 +28,15 @@ Classifier: Programming Language :: Python :: 3.11
 Classifier: Programming Language :: Python :: Implementation :: CPython
 Classifier: Programming Language :: Python :: Implementation :: PyPy
 Requires-Python: >=3
+Description-Content-Type: text/markdown
 License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: nltk
+Requires-Dist: wordcloud
+Requires-Dist: matplotlib
+Provides-Extra: dev
+Requires-Dist: flake8; extra == "dev"
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: codecov; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"

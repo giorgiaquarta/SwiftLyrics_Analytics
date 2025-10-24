@@ -1,0 +1,11 @@
+numpy
+pandas
+nltk
+wordcloud
+matplotlib
+
+[dev]
+flake8
+pytest
+codecov
+pytest-cov

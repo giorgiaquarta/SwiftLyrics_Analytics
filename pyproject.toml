@@ -1,0 +1,65 @@
+[project]
+name = 'Data Analysis of Taylor Swift Lyrics'
+version = '0.0.1'
+authors = [
+  { name='Giorgia Quarta', email='giorgia.quarta3@studio.unibo.it' },
+]
+description = 'Analysis and comparison of themes and lyrics of the whole Taylor Swift discography'
+readme = 'README.md'
+requires-python = '>=3'
+license = {text = 'MIT'}
+keywords = [
+  'statistics',
+  'exercise',
+  'software-development',
+]
+maintainers = [
+  { name='Giorgia Quarta', email='giorgia.quarta3@studio.unibo.it' },
+]
+classifiers = [
+  'Natural Language :: English',
+  'Operating System :: MacOS :: MacOS X',
+  'Operating System :: POSIX',
+  'Operating System :: POSIX :: Linux',
+  'Operating System :: Microsoft :: Windows',
+  'Programming Language :: Python',
+  'Programming Language :: Python :: 3',
+  'Programming Language :: Python :: 3.5',
+  'Programming Language :: Python :: 3.6',
+  'Programming Language :: Python :: 3.7',
+  'Programming Language :: Python :: 3.8',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
+  'Programming Language :: Python :: 3.11',
+  'Programming Language :: Python :: Implementation :: CPython',
+  'Programming Language :: Python :: Implementation :: PyPy'
+]
+dependencies = [
+  'numpy',
+  'pandas',
+  'nltk', 
+  'fastext',
+  'wordcloud',
+  'matplotlib',
+]
+
+[project.scripts]
+swift_lyrics = "SwiftLyrics_Analytics.__main__:main"
+
+[project.optional-dependencies]
+dev = [
+  'flake8',
+  'pytest',
+  'codecov',
+  'pytest-cov',
+]
+
+[project.urls]
+'Homepage' = 'https://github.com/giorgiaquarta/SwiftLyrics_Analytics'
+
+
+[build-system]
+requires = [
+  'setuptools>=42',
+]
+build-backend = 'setuptools.build_meta'

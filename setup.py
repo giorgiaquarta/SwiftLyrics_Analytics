@@ -8,7 +8,7 @@ __email__ = ['giorgia.quarta3@studio.unibo.it']
 
 PACKAGE_NAME = 'SwiftLyrics_Analytics'
 PACKAGE_VERSION = '0.0.1'
-DESCRIPTION = 'Data analysis of Taylor Swift lyrics from her first 11 albums'
+DESCRIPTION = 'Analysis and comparison of themes and lyrics of the whole Taylor Swift discography'
 AUTHOR = 'Giorgia Quarta'
 EMAIL = 'giorgia.quarta3@studio.unibo.it'
 REQUIRES_PYTHON = '>=3'

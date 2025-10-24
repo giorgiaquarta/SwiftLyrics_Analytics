@@ -1,0 +1,27 @@
+Metadata-Version: 2.1
+Name: SwiftLyrics_Analytics
+Version: 0.0.1
+Summary: Data analysis of Taylor Swift lyrics from her first 11 albums
+Home-page: https://github.com/giorgiaquarta/SwiftLyrics_Analytics
+Download-URL: https://github.com/giorgiaquarta/SwiftLyrics_Analytics
+Author: Giorgia Quarta
+Author-email: giorgia.quarta3@studio.unibo.it
+Platform: any
+Classifier: Natural Language :: English
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3
+License-File: LICENSE

@@ -1,0 +1,2 @@
+[console_scripts]
+swift_lyrics = SwiftLyrics_Analytics.__main__:main

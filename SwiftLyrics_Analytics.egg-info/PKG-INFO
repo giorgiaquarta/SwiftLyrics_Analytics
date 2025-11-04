@@ -35,6 +35,7 @@ Requires-Dist: pandas
 Requires-Dist: nltk
 Requires-Dist: wordcloud
 Requires-Dist: matplotlib
+Requires-Dist: jupyter
 Provides-Extra: dev
 Requires-Dist: flake8; extra == "dev"
 Requires-Dist: pytest; extra == "dev"

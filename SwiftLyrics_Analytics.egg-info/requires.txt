@@ -3,6 +3,7 @@ pandas
 nltk
 wordcloud
 matplotlib
+jupyter
 
 [dev]
 flake8

@@ -3,7 +3,7 @@ from transformers import pipeline
 import pandas as pd
 
 
-def classify(df: pd.DataFrame):
+def classify(df: pd.DataFrame, album: str = None, track: str = None):
     device = 0 if torch.cuda.is_available() else -1
 
     sentiment_classifier = pipeline(
@@ -24,7 +24,7 @@ def classify(df: pd.DataFrame):
     style_classifier = pipeline(
         "zero-shot-classification",
         model="MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli",
-        hypothesis_template="This text is written in a(n) {} style.",
+        hypothesis_template="This text is written in a {} style.",
         device=device,
     )
 
@@ -38,7 +38,7 @@ def classify(df: pd.DataFrame):
         "self-worth",
         "revenge",
     ]
-    style_labels = ["poetic", "casual", "quirky"]
+    style_labels = ["aulic", "medium", "simple"]
 
     print("----- CLASSIFIER -----")
 
@@ -46,6 +46,12 @@ def classify(df: pd.DataFrame):
         columns=["album_id", "track_id", "sentiment", "theme", "style"]
     )
     df.reset_index()
+
+    if album != None:
+        df = df.query(f'album_id == "{album}"')
+
+    if track != None:
+        df = df.query(f"track_id == {track}")
 
     for index, row in df.iterrows():
         song = row["lyric"]

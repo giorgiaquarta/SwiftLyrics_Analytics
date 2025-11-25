@@ -15,8 +15,8 @@ def remove_words(data: str):
     data = data.str.replace("[{}]".format(string.punctuation), "")
 
     clean_text = list()
-    nltk.download("punkt_tab")
-    nltk.download("stopwords")
+    nltk.download("punkt_tab", quiet=True)
+    nltk.download("stopwords", quiet=True)
 
     ignore_words = [
         "yeah",

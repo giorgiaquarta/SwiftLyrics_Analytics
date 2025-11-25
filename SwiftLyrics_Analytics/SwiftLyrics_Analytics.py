@@ -23,11 +23,17 @@ def dataset_command(lyrics, albums):
 
 
 def format_command(lyrics):
-    print("pippo")
+    lyrics_df = datset.parse_lyrics(lyrics)
+    clean_lyrics_df = format.clean_lyrics(lyrics_df)
+    print("clean_lyrics_df.head()")
 
 
 def wordcloud_command(lyrics, albums):
-    print("pippo")
+    lyrics_df = format.clean_lyrics(dataset.parse_lyrics(dataset.parse_lyrics(lyrics)))
+    wc.display_wordcloud(lyrics_df["lyric_clean"])
+
+    albums_df = dataset.parse_albums(albums)
+    wc.display_album_wordcloud(albums_df, lyrics_df)
 
 
 def analysis_command(lyrics, albums):

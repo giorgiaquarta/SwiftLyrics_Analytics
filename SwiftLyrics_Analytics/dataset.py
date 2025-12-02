@@ -16,7 +16,7 @@ def parse_df(
 
         raw = pd.read_csv(file_path, delimiter=delimiter, header=header, names=headers)
     except Exception as exc:
-        print(f"Error loading {filename}: {exc}")
+        raise SystemExit(f"Error loading {filename}: {exc}")
 
     return raw
 

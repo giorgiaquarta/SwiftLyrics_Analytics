@@ -1,11 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from .__version__ import __version__
+from .SwiftLyrics_Analytics import main
 
-__author__ = ['Giorgia Quarta']
-__email__ = ['giorgia.quarta3@studio.unibo.it']
+__author__ = ["Giorgia Quarta"]
+__email__ = ["giorgia.quarta3@studio.unibo.it"]
 
-
-def main():
-    print(__version__)
+if __name__ == "__main__":
+    main()

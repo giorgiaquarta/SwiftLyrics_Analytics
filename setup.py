@@ -28,7 +28,7 @@ setup(
     url=URL,
     download_url=DOWNLOAD_URL,
     setup_requires=[],
-    packages=PACKAGE_NAME,
+    packages=[PACKAGE_NAME,],
     package_data={
         PACKAGE_NAME: [],
     },

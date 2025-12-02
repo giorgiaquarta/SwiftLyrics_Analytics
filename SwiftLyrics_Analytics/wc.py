@@ -1,48 +1,87 @@
+import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import pandas as pd
-import matplotlib.pyplot as plt
-from dataset import parse_albums, parse_lyrics
-from format import clean_lyrics
+import numpy as np
 
 
-def gen_wordcloud(df: pd.DataFrame, bg="white", cm="winter"):
-    wc = WordCloud(collocations=False, background_color=bg, colormap=cm).generate(
-        " ".join(df)
-    )
+def gen_wordcloud(
+    text_series: pd.Series, bg: str = "white", cm: str = "winter"
+) -> WordCloud:
+    """
+    Generates a WordCloud object from a series of text strings.
+
+    Args:
+        text_series (pd.Series): strings to include in the wordcloud.
+        bg (str): background color hex code or name.
+        cm (str): colormap name (matplotlib colormap).
+
+    Returns:
+        WordCloud: The generated wordcloud object.
+    """
+    text = " ".join(text_series.dropna().astype(str).tolist())
+
+    # generate wordcloud
+    wc = WordCloud(
+        collocations=False, background_color=bg, colormap=cm, width=800, height=400
+    ).generate(text)
+
     return wc
 
 
-def display_wordcloud(df: pd.DataFrame):
-    wc = gen_wordcloud(df)
+def display_wordcloud(text_series: pd.Series):
+    """
+    Generates and displays a single wordcloud plot for the provided text.
+
+    Args:
+        text_series (pd.Series): the data to visualize.
+    """
+    wc = gen_wordcloud(text_series)
     plt.figure(figsize=(10, 5))
-    plt.imshow(wc)
+    plt.imshow(wc, interpolation="bilinear")
     plt.axis("off")
     plt.show()
 
 
 def display_album_wordcloud(album_df: pd.DataFrame, lyric_df: pd.DataFrame):
-    index = 1
-    album = album_df["Code"][:-1]
-    plt.figure(figsize=(15, 15))
-    for a in album:
-        d = lyric_df[lyric_df["album_id"] == a]
-        color = "#" + album_df.loc[album_df["Code"] == a, "Color"].values[0]
-        wordcloud = gen_wordcloud(d["lyric_clean"], bg=color)
-        plt.subplot(4, 3, index)
-        plt.imshow(wordcloud, interpolation="bilinear")
-        plt.axis("off")
-        plt.title(album_df.loc[album_df["Code"] == a, "Title"].iloc[0])
-        index += 1
-        plt.subplots_adjust(wspace=0.1, hspace=0.3)
+    """
+    Generates and displays a grid of wordclouds, one for each album.
+
+    Args:
+        album_df (pd.DataFrame): DataFrame containing album metadata.
+                                 Expected columns: 'Code', 'Color', 'Title'.
+        lyric_df (pd.DataFrame): DataFrame containing lyrics.
+                                 Expected columns: 'album_id', 'lyric_clean' (or 'lyric').
+    """
+
+    n_albums = len(album_df)
+    cols = 3
+    rows = int(np.ceil(n_albums / cols))
+
+    plt.figure(figsize=(15, 5 * rows))
+
+    for i, (_, album_row) in enumerate(album_df.iterrows(), 1):
+        album_code = album_row["Code"]
+
+        # ensure color format is valid
+        color_hex = str(album_row.get("Color", "000000"))
+        if not color_hex.startswith("#"):
+            color_hex = "#" + color_hex
+
+        # filter lyrics for this album
+        album_lyrics = lyric_df[lyric_df["album_id"] == album_code]
+
+        if album_lyrics.empty:
+            continue
+
+        try:
+            wc = gen_wordcloud(album_lyrics["lyric_clean"], bg=color_hex)
+
+            plt.subplot(rows, cols, i)
+            plt.imshow(wc, interpolation="bilinear")
+            plt.axis("off")
+            plt.title(album_row.get("Title", f"Album {album_code}"))
+        except ValueError:
+            pass
+
+    plt.subplots_adjust(wspace=0.1, hspace=0.3)
     plt.show()
-
-
-if __name__ == "__main__":
-    from dataset import parse_lyrics
-    from format import clean_lyrics
-
-    lyrics = clean_lyrics(parse_lyrics("lyrics.csv"))
-    # display_wordcloud(lyrics["lyric_clean"])
-
-    albums = parse_albums("albums.csv")
-    display_album_wordcloud(albums, lyrics)

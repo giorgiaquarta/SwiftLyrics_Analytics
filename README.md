@@ -52,8 +52,9 @@ swift_lyrics dataset
 Apply text cleaning algorithms (tokenization, stopword removal) to the lyrics and display the output dataframe.
 ```bash
 swift_lyrics format
+```
 
-### 3\. Generate Word Clouds
+### 3. Generate Word Clouds
 
 Display a global word cloud of all lyrics and specific word clouds for each album.
 
@@ -61,7 +62,7 @@ Display a global word cloud of all lyrics and specific word clouds for each albu
 swift_lyrics wordcloud
 ```
 
-### 4\. Neural Network Analysis
+### 4. Neural Network Analysis
 
 Perform zero-shot classification on the lyrics. You can analyze the whole discography or filter by specific Album IDs or Track IDs.
 

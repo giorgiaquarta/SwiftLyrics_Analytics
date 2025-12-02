@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = 'SwiftLyrics_Analytics'
 version = '0.0.1'
@@ -41,10 +45,12 @@ dependencies = [
   'wordcloud',
   'matplotlib',
   'jupyter',
+  'transformers',
+  'torch'
 ]
 
 [project.scripts]
-swift_lyrics = "SwiftLyrics_Analytics.__main__:main"
+swift_lyrics = "SwiftLyrics_Analytics.SwiftLyrics_Analytics:main"
 
 [project.optional-dependencies]
 dev = [
@@ -56,10 +62,3 @@ dev = [
 
 [project.urls]
 'Homepage' = 'https://github.com/giorgiaquarta/SwiftLyrics_Analytics'
-
-
-[build-system]
-requires = [
-  'setuptools>=42',
-]
-build-backend = 'setuptools.build_meta'

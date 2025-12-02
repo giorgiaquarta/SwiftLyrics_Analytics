@@ -128,8 +128,12 @@ SwiftLyrics_Analytics/
 
 ## Testing
 
-To run the tests, ensure you have the dev dependencies installed and run:
+To run the tests, ensure you have the dev dependencies installed: 
+```bash
+pip install -e .[dev]
+```
 
+Run the testing module:
 ```bash
 pytest
 ```

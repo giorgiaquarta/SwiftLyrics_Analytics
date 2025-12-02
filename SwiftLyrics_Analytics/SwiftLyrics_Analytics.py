@@ -1,81 +1,101 @@
-import dataset
-import format
-import wc
-import nn_analysis
-import sys
-
-usage = """
-USAGE: SwiftLyrics_Analytics.py COMMAND
-
-COMMAND may be one of the following:
-    - dataset LYRICS_FILENAME ALBUM_FILENAME: print the heading lines of the dataset
-    - format LYRICS_FILENAME: clean the lyrics and print the data frame
-    - wordcloud LYRICS_FILENAME ALBUM_FILENAME: display the wordcloud of the dataset
-    - analysis LYRICS_FILENAME: perform a neural network analysis of the dataset
-"""
+import argparse
+from . import dataset, format, wc, nn_analysis
 
 
-def dataset_command(lyrics, albums):
-    lyrics = dataset.parse_lyrics(lyrics)
-    albums = dataset.parse_albums(albums)
+def dataset_command(args):
+    """Handles the 'dataset' command."""
+
+    lyrics = dataset.parse_lyrics(args.lyrics)
+    albums = dataset.parse_albums(args.albums)
+    print("--- Lyrics Head ---")
     print(lyrics.head())
+    print("\n--- Albums Head ---")
     print(albums.head())
 
 
-def format_command(lyrics):
-    lyrics_df = dataset.parse_lyrics(lyrics)
+def format_command(args):
+    """Handles the 'format' command."""
+
+    lyrics_df = dataset.parse_lyrics(args.lyrics)
     clean_lyrics_df = format.clean_lyrics(lyrics_df)
     print(clean_lyrics_df.head())
 
 
-def wordcloud_command(lyrics, albums):
-    lyrics_df = format.clean_lyrics(dataset.parse_lyrics(lyrics))
+def wordcloud_command(args):
+    """Handles the 'wordcloud' command."""
+
+    lyrics_df = format.clean_lyrics(dataset.parse_lyrics(args.lyrics))
+    albums_df = dataset.parse_albums(args.albums)
+
+    print("Displaying global wordcloud...")
     wc.display_wordcloud(lyrics_df["lyric_clean"])
 
-    albums_df = dataset.parse_albums(albums)
+    print("Displaying album-specific wordclouds...")
     wc.display_album_wordcloud(albums_df, lyrics_df)
 
 
-def analysis_command(lyrics, album=None, track=None):
-    lyrics_df = dataset.parse_lyrics(lyrics)
+def analysis_command(args):
+    """Handles the 'analysis' command."""
 
-    classified_df = nn_analysis.classify(lyrics_df, album, track)
+    lyrics_df = dataset.parse_lyrics(args.lyrics)
+    classified_df = nn_analysis.classify(lyrics_df, args.album, args.track)
     print(classified_df.head(20))
 
-def parse_args_to_kwargs(args_list):
-    """Parses a list of strings 'key=value' into a dictionary."""
-    kwargs = {}
-    for arg in args_list:
-        if "=" in arg:
-            # Split only on the first '=' to allow '=' in values
-            key, value = arg.split("=", 1)
-            # Optional: Strip dashes if user types --key=value
-            key = key.lstrip('-') 
-            kwargs[key] = value
-    return kwargs
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="SwiftLyrics Analytics: analysis of Taylor Swift lyrics."
+    )
+
+    subparsers = parser.add_subparsers(
+        dest="command", required=True, help="Available commands"
+    )
+
+    # Command: dataset
+    parser_ds = subparsers.add_parser(
+        "dataset", help="Print the heading lines of the dataset"
+    )
+    parser_ds.add_argument(
+        "--lyrics", default="lyrics.csv", help="Filename of lyrics CSV"
+    )
+    parser_ds.add_argument(
+        "--albums", default="albums.csv", help="Filename of albums CSV"
+    )
+    parser_ds.set_defaults(func=dataset_command)
+
+    # Command: format
+    parser_fmt = subparsers.add_parser(
+        "format", help="Clean lyrics and print dataframe"
+    )
+    parser_fmt.add_argument(
+        "--lyrics", default="lyrics.csv", help="Filename of lyrics CSV"
+    )
+    parser_fmt.set_defaults(func=format_command)
+
+    # Command: wordcloud
+    parser_wc = subparsers.add_parser("wordcloud", help="Display wordclouds")
+    parser_wc.add_argument(
+        "--lyrics", default="lyrics.csv", help="Filename of lyrics CSV"
+    )
+    parser_wc.add_argument(
+        "--albums", default="albums.csv", help="Filename of albums CSV"
+    )
+    parser_wc.set_defaults(func=wordcloud_command)
+
+    # Command: analysis
+    parser_an = subparsers.add_parser(
+        "analysis", help="Perform neural network analysis"
+    )
+    parser_an.add_argument(
+        "--lyrics", default="lyrics.csv", help="Filename of lyrics CSV"
+    )
+    parser_an.add_argument("--album", default=None, help="Filter by Album ID")
+    parser_an.add_argument("--track", default=None, help="Filter by Track ID")
+    parser_an.set_defaults(func=analysis_command)
+
+    args = parser.parse_args()
+    args.func(args)
+
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        sys.exit("Usage: python script.py <command> [key=value ...]")
-
-    command = sys.argv[1]
-    # Grab everything after the command
-    raw_args = sys.argv[2:] 
-    
-    # Convert list to dictionary
-    kwargs = parse_args_to_kwargs(raw_args)
-
-    match command:
-        case "dataset":
-            # Unpack the dictionary into the function
-            # User types: python main.py dataset input=data.csv output=clean.csv
-            dataset_command(**kwargs) 
-        case "format":
-            # User types: python main.py format file=text.txt
-            format_command(**kwargs)
-        case "wordcloud":
-            wordcloud_command(**kwargs)
-        case "analysis":
-            analysis_command(**kwargs)
-        case _:
-            sys.exit("Unknown command.")
+    main()

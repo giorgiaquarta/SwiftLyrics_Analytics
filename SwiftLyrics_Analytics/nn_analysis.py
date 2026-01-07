@@ -31,7 +31,7 @@ def classify(
     if album_id:
         filtered_df = filtered_df[filtered_df["album_id"] == album_id]
     if track_id:
-        filtered_df = filtered_df[filtered_df["track_id"].astype(str) == str(track_id)]
+        filtered_df = filtered_df[filtered_df["track_id"].astype(str) == str(int(track_id))]
 
     if filtered_df.empty:
         logger.warning("No data found for the specified album/track criteria.")

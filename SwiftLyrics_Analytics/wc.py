@@ -97,5 +97,5 @@ def display_album_wordcloud(album_df: pd.DataFrame, lyric_df: pd.DataFrame):
         except ValueError:
             pass
 
-    plt.subplots_adjust(wspace=0.1, hspace=0.3, top=0.95) # Adjusted top to make room for suptitle
+    plt.subplots_adjust(wspace=0.1, hspace=0.3, top=0.88) # Adjusted top to make room for suptitle
     plt.show()

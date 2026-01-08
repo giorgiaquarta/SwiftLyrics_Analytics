@@ -2,9 +2,11 @@ import pandas as pd
 import logging
 from typing import Optional
 
+# Configure logging to track progress and errors
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+# Use a DeBERTa-v3 model 
 MODEL_NAME = "MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli"
 
 
@@ -39,10 +41,12 @@ def classify(
             columns=["album_id", "track_id", "sentiment", "theme", "style"]
         )
 
+    # Pipeline Setup
     device = 0 if torch.cuda.is_available() else -1
     logger.info(f"Loading pipelines on device {device}...")
 
     try:
+        # Pipeline 1: Sentiment
         sentiment_classifier = pipeline(
             "zero-shot-classification",
             model=MODEL_NAME,
@@ -50,6 +54,7 @@ def classify(
             device=device,
         )
 
+        # Pipeline 2: Theme
         theme_classifier = pipeline(
             "zero-shot-classification",
             model=MODEL_NAME,
@@ -58,6 +63,7 @@ def classify(
             multi_label=True,
         )
 
+        # Pipeline 3: Writing Style
         style_classifier = pipeline(
             "zero-shot-classification",
             model=MODEL_NAME,
@@ -69,6 +75,7 @@ def classify(
         logger.error(f"Failed to load models: {e}")
         raise
 
+    # Define candidate labels
     sentiment_labels = ["positive", "negative", "neutral"]
     theme_labels = [
         "love",

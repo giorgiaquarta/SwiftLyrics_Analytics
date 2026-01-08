@@ -36,11 +36,11 @@ def display_wordcloud(text_series: pd.Series):
     Args:
         text_series (pd.Series): the data to visualize.
     """
-# 1. Terminal Output
+    # Terminal Output
     print("Showing figure 1/2: most frequent words in Taylor Swift's discography...")
 
     wc = gen_wordcloud(text_series)
-     # 2. Window Title (via 'num') and Figure setup
+     # Window Title (via 'num') and Figure setup
     plt.figure(num="Figure 1/2: Complete Discography", figsize=(10, 5))
     plt.imshow(wc, interpolation="bilinear")
     plt.axis("off")
@@ -59,14 +59,14 @@ def display_album_wordcloud(album_df: pd.DataFrame, lyric_df: pd.DataFrame):
         lyric_df (pd.DataFrame): DataFrame containing lyrics.
                                  Expected columns: 'album_id', 'lyric_clean' (or 'lyric').
     """
-# 1. Terminal Output
+    # Terminal Output
     print("Showing figure 2/2: most frequent words per album...")
 
     n_albums = len(album_df)
     cols = 3
     rows = int(np.ceil(n_albums / cols))
 
-    # 2. Window Title (via 'num')
+    # Window Title (via 'num')
     plt.figure(num="Figure 2/2: Album Details", figsize=(15, 5 * rows))
 
     # Add a main title to the entire grid

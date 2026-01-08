@@ -16,6 +16,7 @@ def dataset_command(args):
 def format_command(args):
     """Handles the 'format' command."""
 
+    # load data and apply cleaning logic from the format/text_processing module
     lyrics_df = dataset.parse_lyrics(args.lyrics)
     clean_lyrics_df = format.clean_lyrics(lyrics_df)
     print(clean_lyrics_df.head())
@@ -47,6 +48,7 @@ def main():
         description="SwiftLyrics Analytics: analysis of Taylor Swift lyrics."
     )
 
+    # create sub-parsers for the different modes of operation
     subparsers = parser.add_subparsers(
         dest="command", required=True, help="Available commands"
     )

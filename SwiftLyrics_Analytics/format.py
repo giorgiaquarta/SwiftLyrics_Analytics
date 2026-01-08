@@ -15,7 +15,10 @@ except LookupError:
 
 
 def get_ignore_words() -> set:
-    """Returns a set of words to ignore."""
+    """
+    Returns a set of words to ignore during analysis. 
+    Combines standard English stopwords with a custom list of slang/fillers.
+    """
 
     custom_ignore = {
         "yeah",
@@ -82,7 +85,7 @@ def clean_text(text: str) -> str:
         return ""
 
     text = re.sub(r"[\(\[].*?[\)\]]", "", text)  # remove brackets
-    text = text.replace("\\", "").replace("-", " ").replace("\n", " ")
+    text = text.replace("\\", "").replace("-", " ").replace("\n", " ") # remove backslashes, replace dashes and newlines with spaces
     text = re.sub(r"\b\w*'\w+\b", "", text)  # remove words with apostrophes
     text = re.sub(r"[^\w\s]", "", text)  # remove punctuation
     text = text.lower()

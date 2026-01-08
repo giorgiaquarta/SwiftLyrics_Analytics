@@ -39,7 +39,7 @@ def parse_lyrics(filename: str = "lyrics.csv") -> pd.DataFrame:
 
 
 def parse_albums(filename: str = "albums.csv") -> pd.DataFrame:
-    """Parses album metadata and drops statistical columns."""
+    """ Parses album metadata and cleans up unnecessary statistical columns. """
 
     raw_albums = parse_df(filename, header="infer")
     if raw_albums.empty:

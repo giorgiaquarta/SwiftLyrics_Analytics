@@ -18,6 +18,7 @@ def gen_wordcloud(
     Returns:
         WordCloud: The generated wordcloud object.
     """
+    #join text, ensure strings, drop NAs
     text = " ".join(text_series.dropna().astype(str).tolist())
 
     # generate wordcloud
@@ -35,10 +36,16 @@ def display_wordcloud(text_series: pd.Series):
     Args:
         text_series (pd.Series): the data to visualize.
     """
+# 1. Terminal Output
+    print("Showing figure 1/2: most frequent words in Taylor Swift's discography...")
+
     wc = gen_wordcloud(text_series)
-    plt.figure(figsize=(10, 5))
+     # 2. Window Title (via 'num') and Figure setup
+    plt.figure(num="Figure 1/2: Complete Discography", figsize=(10, 5))
     plt.imshow(wc, interpolation="bilinear")
     plt.axis("off")
+     # add a visible title on the chart itself
+    plt.title("Most frequent words in Taylor Swift's discography")
     plt.show()
 
 
@@ -52,12 +59,18 @@ def display_album_wordcloud(album_df: pd.DataFrame, lyric_df: pd.DataFrame):
         lyric_df (pd.DataFrame): DataFrame containing lyrics.
                                  Expected columns: 'album_id', 'lyric_clean' (or 'lyric').
     """
+# 1. Terminal Output
+    print("Showing figure 2/2: most frequent words per album...")
 
     n_albums = len(album_df)
     cols = 3
     rows = int(np.ceil(n_albums / cols))
 
-    plt.figure(figsize=(15, 5 * rows))
+    # 2. Window Title (via 'num')
+    plt.figure(num="Figure 2/2: Album Details", figsize=(15, 5 * rows))
+
+    # Add a main title to the entire grid
+    plt.suptitle("Most frequent words per album", fontsize=20)
 
     for i, (_, album_row) in enumerate(album_df.iterrows(), 1):
         album_code = album_row["Code"]
@@ -74,6 +87,7 @@ def display_album_wordcloud(album_df: pd.DataFrame, lyric_df: pd.DataFrame):
             continue
 
         try:
+            # check if column exists, fallback to 'lyric' if 'lyric_clean' missing
             wc = gen_wordcloud(album_lyrics["lyric_clean"], bg=color_hex)
 
             plt.subplot(rows, cols, i)
@@ -83,5 +97,5 @@ def display_album_wordcloud(album_df: pd.DataFrame, lyric_df: pd.DataFrame):
         except ValueError:
             pass
 
-    plt.subplots_adjust(wspace=0.1, hspace=0.3)
+    plt.subplots_adjust(wspace=0.1, hspace=0.3, top=0.95) # Adjusted top to make room for suptitle
     plt.show()

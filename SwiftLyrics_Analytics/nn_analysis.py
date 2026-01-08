@@ -1,6 +1,8 @@
 import pandas as pd
 import logging
 from typing import Optional
+import torch
+from transformers import pipeline
 
 # Configure logging to track progress and errors
 logger = logging.getLogger(__name__)
@@ -25,8 +27,6 @@ def classify(
         pd.DataFrame: a new DataFrame with classification columns appended.
     """
 
-    import torch
-    from transformers import pipeline
 
     # filter data for album or track identifier
     filtered_df = df.copy()

@@ -86,7 +86,7 @@ def classify(
         "self-worth",
         "revenge",
     ]
-    style_labels = ["aulic", "medium", "simple"]
+    style_labels = ["poetic", "conversational", "simple"]
 
     results = []
     total_songs = len(filtered_df)

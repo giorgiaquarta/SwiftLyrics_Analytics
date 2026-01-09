@@ -10,7 +10,7 @@
 * **Neural Network Analysis**: Perform zero-shot classification using the `MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli` model to determine:
     * **Sentiment**: Positive, Negative, Neutral.
     * **Theme**: Love, Grief, Family, Friendship, Power, Self-worth, Revenge.
-    * **Style**: Aulic, Medium, Simple.
+    * **Style**: Poetic, Conversational, Simple.
 
 ## Installation
 

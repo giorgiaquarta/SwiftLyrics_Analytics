@@ -108,6 +108,9 @@ The project uses specific codes for albums found in the dataset. Available album
 
 ```text
 SwiftLyrics_Analytics/
+├── .github/
+│   └── workflows/
+│       └── python-app.yml   # GitHub Actions (CI pipeline)
 ├── SwiftLyrics_Analytics/
 │   ├── dataset/
 │   │   ├── albums.csv       # Album metadata

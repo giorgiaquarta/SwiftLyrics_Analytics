@@ -121,6 +121,11 @@ SwiftLyrics_Analytics/
 │   ├── wc.py                # WordCloud generation
 │   └── ...
 ├── test/                    # Unit tests
+│   ├── test_positive.py
+│   └── test_negative.py
+├── .gitignore               # Ignored files configuration
+├── requirements.txt         # Dependency list
+├── README.md                # Project documentation
 ├── pyproject.toml           # Project configuration & dependencies
 ├── setup.py                 # Setup script
 └── LICENSE                  # MIT License
